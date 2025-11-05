@@ -1,0 +1,30 @@
+{
+  "name": "dealerpage",
+  "version": "1.0.0",
+  "description": "LearnToDeal - Casino Dealer Coaching Landing Page",
+  "scripts": {
+    "dev": "next dev",
+    "dev:netlify": "netlify dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next build"
+  },
+  "keywords": [
+    "casino",
+    "dealer",
+    "coaching",
+    "landing-page"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ant-design/nextjs-registry": "^1.2.0",
+    "antd": "^5.28.0",
+    "next": "^16.0.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^23.10.0"
+  }
+}
