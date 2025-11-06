@@ -1,7 +1,9 @@
 'use client'
 
+import { ConfigProvider } from 'antd'
 import { Layout } from 'antd'
 import { useState } from 'react'
+import themeConfig from '../theme.config'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import FeatureTiles from '../components/FeatureTiles'
@@ -28,26 +30,28 @@ export default function Home() {
   }
 
   return (
-    <Layout style={{ minHeight: '100vh', overflowX: 'hidden' }}>
-      <Header onContactClick={handleOpenContactModal} />
+    <ConfigProvider theme={themeConfig}>
+      <Layout style={{ minHeight: '100vh', overflowX: 'hidden' }}>
+        <Header onContactClick={handleOpenContactModal} />
 
-      <Content style={{ overflowX: 'hidden', width: '100%' }}>
-        <Hero onJoinWaitlist={handleOpenContactModal} />
-        <FeatureTiles />
-        <HowItWorks />
-        <Curriculum />
-        <Pricing onContactClick={handleOpenContactModal} />
-        <Testimonials />
-        <InstructorBio onContactClick={handleOpenContactModal} />
-        <FAQ />
-      </Content>
+        <Content style={{ overflowX: 'hidden', width: '100%' }}>
+          <Hero onJoinWaitlist={handleOpenContactModal} />
+          <FeatureTiles />
+          <HowItWorks />
+          <Curriculum />
+          <Pricing onContactClick={handleOpenContactModal} />
+          <Testimonials />
+          <InstructorBio onContactClick={handleOpenContactModal} />
+          <FAQ />
+        </Content>
 
-      <Footer />
+        <Footer />
 
-      <ContactModal
-        open={contactModalOpen}
-        onClose={handleCloseContactModal}
-      />
-    </Layout>
+        <ContactModal
+          open={contactModalOpen}
+          onClose={handleCloseContactModal}
+        />
+      </Layout>
+    </ConfigProvider>
   )
 }

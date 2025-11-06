@@ -1,32 +1,35 @@
 'use client'
 
+import { useTranslations } from '../hooks/useTranslations'
 import { Row, Col, Card, Typography, Space, Tag, Alert, Image } from 'antd'
 import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons'
 
 const { Title, Text, Paragraph } = Typography
 
-const formats = [
-  {
-    title: 'One-on-one (Premium)',
-    summary: 'Weekly 60–90 minute live coaching calls, personalized drills, and direct feedback. Best for fast progress and career transition.',
-    timeline: 'Typical plan: 8–12 weeks.',
-    tag: 'Most Popular',
-  },
-  {
-    title: 'Small Group (Pro)',
-    summary: 'Groups of 4–8 students, weekly live sessions with guided practice and community support.',
-    timeline: '8–12 weeks with cohort practice sessions.',
-    tag: 'Best Value',
-  },
-  {
-    title: 'Mentor-checked Self-study (Starter — future)',
-    summary: 'Self-paced learning with periodic mentor reviews and monthly group Q&A.',
-    timeline: 'Flexible.',
-    tag: 'Coming Soon',
-  },
-]
-
 export default function HowItWorks() {
+  const t = useTranslations('howItWorks')
+
+  const formats = [
+    {
+      title: t('format1Title'),
+      summary: t('format1Desc'),
+      timeline: t('format1Timeline'),
+      tag: t('format1Tag'),
+    },
+    {
+      title: t('format2Title'),
+      summary: t('format2Desc'),
+      timeline: t('format2Timeline'),
+      tag: t('format2Tag'),
+    },
+    {
+      title: t('format3Title'),
+      summary: t('format3Desc'),
+      timeline: t('format3Timeline'),
+      tag: t('format3Tag'),
+    },
+  ]
+
   return (
     <Row
       justify="center"
@@ -46,7 +49,7 @@ export default function HowItWorks() {
               color: '#ffffff',
             }}
           >
-            How It Works — Format & Guarantees
+            {t('title')}
           </Title>
 
           <Paragraph
@@ -57,7 +60,7 @@ export default function HowItWorks() {
               marginBottom: 32,
             }}
           >
-            Three guided formats — choose the pace and intensity that fit you.
+            {t('subtitle')}
           </Paragraph>
 
           {/* Visual Banner */}
@@ -145,11 +148,11 @@ export default function HowItWorks() {
               <Space>
                 <CheckCircleOutlined style={{ fontSize: 18 }} />
                 <Text strong style={{ fontSize: 16 }}>
-                  Satisfaction Guarantee
+                  {t('guaranteeTitle')}
                 </Text>
               </Space>
             }
-            description="If you try the first two sessions and don't find them useful, contact us for a partial refund or reschedule — we want students who get results."
+            description={t('guaranteeDesc')}
             type="success"
             showIcon={false}
             style={{

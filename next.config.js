@@ -5,6 +5,11 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
+  experimental: {
+    skipTrailingSlashRedirect: true,
+  },
+  // Disable error overlay during build
+  reactStrictMode: false,
 }
 
 module.exports = nextConfig

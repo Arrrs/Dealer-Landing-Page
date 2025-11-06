@@ -1,6 +1,3 @@
-import { AntdRegistry } from '@ant-design/nextjs-registry'
-import { ConfigProvider, App } from 'antd'
-import themeConfig from '../theme.config'
 import './globals.css'
 
 export const metadata = {
@@ -19,13 +16,7 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
       </head>
       <body style={{ margin: 0, padding: 0, overflowX: 'hidden', width: '100%' }}>
-        <AntdRegistry>
-          <ConfigProvider theme={themeConfig}>
-            <App>
-              {children}
-            </App>
-          </ConfigProvider>
-        </AntdRegistry>
+        {children}
       </body>
     </html>
   )

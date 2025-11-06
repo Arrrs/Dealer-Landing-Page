@@ -3,23 +3,38 @@
 import { Layout, Row, Col, Menu, Button, Drawer, Space, Typography } from 'antd'
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons'
 import { useState } from 'react'
+import { useTranslations, useLocale } from '../hooks/useTranslations'
+import { useRouter } from 'next/navigation'
+import LanguageSwitcher from './LanguageSwitcher'
 
 const { Header: AntHeader } = Layout
 const { Text } = Typography
 
 export default function Header({ onContactClick }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const router = useRouter()
+  const locale = useLocale()
+
+  const t = useTranslations('nav')
+  const tCommon = useTranslations('common')
 
   const menuItems = [
-    { key: 'about', label: 'About' },
-    { key: 'curriculum', label: 'Curriculum' },
-    { key: 'pricing', label: 'Pricing' },
-    { key: 'testimonials', label: 'Testimonials' },
-    { key: 'faq', label: 'FAQ' },
-    { key: 'contact', label: 'Contact' },
+    { key: 'home', label: t('home') },
+    { key: 'about', label: t('about') },
+    { key: 'curriculum', label: t('curriculum') },
+    { key: 'pricing', label: t('pricing') },
+    { key: 'testimonials', label: t('testimonials') },
+    { key: 'faq', label: t('faq') },
+    { key: 'contact', label: t('contact') },
   ]
 
   const handleMenuClick = (e) => {
+    if (e.key === 'home') {
+      router.push('/')
+      setMobileMenuOpen(false)
+      return
+    }
+
     if (e.key === 'contact') {
       onContactClick()
       setMobileMenuOpen(false)
@@ -41,6 +56,7 @@ export default function Header({ onContactClick }) {
         zIndex: 100,
         width: '100%',
         padding: '0 16px',
+        height: 64,
         display: 'flex',
         alignItems: 'center',
         boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
@@ -53,33 +69,33 @@ export default function Header({ onContactClick }) {
       >
         {/* Logo */}
         <Col xs={18} sm={18} md={6}>
-          <Space direction="vertical" size={0}>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: 64 }}>
             <Text
               style={{
                 fontSize: 20,
                 fontWeight: 700,
                 fontFamily: "'Poppins', sans-serif",
                 color: '#d9a451',
-                lineHeight: 1.2,
+                lineHeight: 1.3,
+                marginBottom: 2,
               }}
             >
-              LearnToDeal
+              {tCommon('appName')}
             </Text>
             <Text
               style={{
                 fontSize: 11,
                 color: '#8892a0',
-                display: 'block',
                 lineHeight: 1.2,
               }}
             >
-              Live & online dealer training
+              {tCommon('tagline')}
             </Text>
-          </Space>
+          </div>
         </Col>
 
         {/* Desktop Menu */}
-        <Col md={14} className="desktop-only" style={{ display: 'flex', justifyContent: 'center' }}>
+        <Col md={12} className="desktop-only" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Menu
             mode="horizontal"
             items={menuItems}
@@ -87,16 +103,24 @@ export default function Header({ onContactClick }) {
             style={{
               background: 'transparent',
               border: 'none',
-              flex: 1,
-              justifyContent: 'center',
+              lineHeight: '64px',
             }}
           />
         </Col>
 
-        {/* Desktop CTA Button */}
-        <Col md={4} className="desktop-only" style={{ textAlign: 'right' }}>
-          <Button type="primary" size="large" onClick={onContactClick}>
-            Book Intro Call
+        {/* Desktop CTA Button & Language Switcher */}
+        <Col md={6} className="desktop-only" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 8 }}>
+          <LanguageSwitcher style={{ width: 160 }} />
+          <Button
+            type="primary"
+            size="large"
+            onClick={onContactClick}
+            style={{
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+            }}
+          >
+            {tCommon('bookIntroCall')}
           </Button>
         </Col>
 
@@ -113,16 +137,29 @@ export default function Header({ onContactClick }) {
       {/* Mobile Drawer */}
       <Drawer
         title={
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: 700,
-              fontFamily: "'Poppins', sans-serif",
-              color: '#d9a451',
-            }}
-          >
-            LearnToDeal
-          </Text>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: 64 }}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: 700,
+                fontFamily: "'Poppins', sans-serif",
+                color: '#d9a451',
+                lineHeight: 1.3,
+                marginBottom: 2,
+              }}
+            >
+              {tCommon('appName')}
+            </Text>
+            <Text
+              style={{
+                fontSize: 11,
+                color: '#8892a0',
+                lineHeight: 1.2,
+              }}
+            >
+              {tCommon('tagline')}
+            </Text>
+          </div>
         }
         placement="right"
         onClose={() => setMobileMenuOpen(false)}
@@ -137,6 +174,7 @@ export default function Header({ onContactClick }) {
             onClick={handleMenuClick}
             style={{ background: 'transparent', border: 'none' }}
           />
+          <LanguageSwitcher style={{ width: '100%' }} />
           <Button
             type="primary"
             size="large"
@@ -145,8 +183,15 @@ export default function Header({ onContactClick }) {
               onContactClick()
               setMobileMenuOpen(false)
             }}
+            style={{
+              whiteSpace: 'normal',
+              height: 'auto',
+              minHeight: 56,
+              padding: '12px 24px',
+              textAlign: 'center',
+            }}
           >
-            Book Intro Call
+            {tCommon('bookIntroCall')}
           </Button>
         </Space>
       </Drawer>

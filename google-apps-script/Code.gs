@@ -1,46 +1,30 @@
 // Google Apps Script - Code.gs
 // Deploy this as a Web App with "Anyone" access
+// IMPORTANT: After deployment, you MUST use the "Web app URL", not the "Deployment URL"
 
-const SHEET_NAME = 'Dealer Page - Leads'; // Set your sheet name
-const SECRET = '32Il9jD9XMa1ay8Ic/B8XnFhhou2NPQDBotgggj/LeU='; // Must match NEXT_PUBLIC_SITE_TOKEN in frontend
-const TELEGRAM_TOKEN = '8470827303:AAFLrUv_jNlPYcBY1P_leNf1RSosMkPwczk'; // Get from @BotFather
-const CHAT_ID = '321841339'; // Your Telegram chat ID
-const SPREADSHEET_ID = '1ZSvCcDzFVKMkUpgl8P2nXIJrwbqbiaOUTpSa_jXMD5I'; // Your Google Spreadsheet ID
+const SHEET_NAME = 'Dealer Page - Leads';
+const SECRET = '32Il9jD9XMa1ay8Ic/B8XnFhhou2NPQDBotgggj/LeU=';
+const TELEGRAM_TOKEN = '8470827303:AAFLrUv_jNlPYcBY1P_leNf1RSosMkPwczk';
+const CHAT_ID = '321841339';
+const SPREADSHEET_ID = '1ZSvCcDzFVKMkUpgl8P2nXIJrwbqbiaOUTpSa_jXMD5I';
 
 /**
- * Handle GET requests (required for Google Apps Script to work properly)
+ * Handle GET requests - returns JSON with CORS headers
  */
 function doGet(e) {
-  return ContentService.createTextOutput(
+  const output = ContentService.createTextOutput(
     JSON.stringify({
-      status: 'error',
-      message: 'This endpoint only accepts POST requests. Please use the contact form.'
+      status: 'info',
+      message: 'This endpoint accepts POST requests only.'
     })
-  )
-  .setMimeType(ContentService.MimeType.JSON)
-  .setHeaders({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type'
-  });
-}
-
-/**
- * Handle OPTIONS requests for CORS preflight
- */
-function doOptions(e) {
-  return ContentService.createTextOutput('')
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Max-Age': '86400'
-    });
+  );
+  output.setMimeType(ContentService.MimeType.JSON);
+  return output;
 }
 
 /**
  * Handle POST requests from the landing page form
+ * Google Apps Script automatically adds CORS headers when deployed with "Anyone" access
  */
 function doPost(e) {
   try {
@@ -53,15 +37,10 @@ function doPost(e) {
 
     // Verify secret token
     if (!data.site_token || data.site_token !== SECRET) {
+      lock.releaseLock();
       return ContentService.createTextOutput(
         JSON.stringify({ status: 'error', message: 'Invalid token' })
-      )
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      });
+      ).setMimeType(ContentService.MimeType.JSON);
     }
 
     // Open spreadsheet and get/create sheet
@@ -70,7 +49,6 @@ function doPost(e) {
 
     if (!sheet) {
       sheet = ss.insertSheet(SHEET_NAME);
-      // Add headers
       sheet.appendRow([
         'Timestamp',
         'Name',
@@ -112,24 +90,12 @@ function doPost(e) {
     // Return success
     return ContentService.createTextOutput(
       JSON.stringify({ status: 'ok' })
-    )
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    });
+    ).setMimeType(ContentService.MimeType.JSON);
 
   } catch (err) {
     return ContentService.createTextOutput(
       JSON.stringify({ status: 'error', message: err.toString() })
-    )
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    });
+    ).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
@@ -180,7 +146,6 @@ function sendTelegramNotification(data) {
     );
   } catch (err) {
     Logger.log('Telegram notification failed: ' + err.toString());
-    // Don't throw error - we still want the form submission to succeed
   }
 }
 

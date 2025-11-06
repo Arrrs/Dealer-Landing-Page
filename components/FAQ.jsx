@@ -2,43 +2,46 @@
 
 import { Row, Col, Typography, Collapse } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
+import { useTranslations } from '../hooks/useTranslations'
 
 const { Title, Paragraph } = Typography
 
-const faqData = [
-  {
-    key: '1',
-    question: 'Do I need experience to join?',
-    answer: 'No. Most students start with little to no experience. We begin with fundamentals and practical drills.',
-  },
-  {
-    key: '2',
-    question: 'How long before I can work?',
-    answer: 'Typical timeline is 8–12 weeks for a confident, working baseline — it depends on practice and prior skill.',
-  },
-  {
-    key: '3',
-    question: 'Do you provide a certificate?',
-    answer: 'We provide a completion record and recorded sessions; formal casino certificates vary by region.',
-  },
-  {
-    key: '4',
-    question: 'Is this legal / ethical?',
-    answer: 'Yes. This is training and career coaching for regulated dealer roles. We do not teach cheating or exploitative behavior.',
-  },
-  {
-    key: '5',
-    question: 'How are payments handled?',
-    answer: 'Payments via Stripe or bank transfer (details provided at checkout). Custom plans available.',
-  },
-  {
-    key: '6',
-    question: 'What if I miss a session?',
-    answer: 'Sessions are recorded when possible; reschedules allowed within reason.',
-  },
-]
-
 export default function FAQ() {
+  const t = useTranslations('faq')
+
+  const faqData = [
+    {
+      key: '1',
+      question: t('q1'),
+      answer: t('a1'),
+    },
+    {
+      key: '2',
+      question: t('q2'),
+      answer: t('a2'),
+    },
+    {
+      key: '3',
+      question: t('q3'),
+      answer: t('a3'),
+    },
+    {
+      key: '4',
+      question: t('q4'),
+      answer: t('a4'),
+    },
+    {
+      key: '5',
+      question: t('q5'),
+      answer: t('a5'),
+    },
+    {
+      key: '6',
+      question: t('q6'),
+      answer: t('a6'),
+    },
+  ]
+
   const items = faqData.map((faq) => ({
     key: faq.key,
     label: (
@@ -75,7 +78,7 @@ export default function FAQ() {
             marginBottom: 48,
           }}
         >
-          Frequently Asked Questions
+          {t('title')}
         </Title>
 
         {/* FAQ Collapse */}

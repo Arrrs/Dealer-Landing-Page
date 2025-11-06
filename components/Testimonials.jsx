@@ -2,31 +2,33 @@
 
 import { Row, Col, Card, Typography, Space, Avatar } from 'antd'
 import { StarFilled, UserOutlined } from '@ant-design/icons'
+import { useTranslations } from '../hooks/useTranslations'
 
 const { Title, Text, Paragraph } = Typography
 
-const testimonials = [
-  {
-    quote: 'I went from zero to confidently dealing live tables in six weeks. The instructor does not sugarcoat anything — she shows what works.',
-    name: 'Anna P.',
-    role: 'Live Dealer (graduated cohort)',
-    avatar: 'https://i.pravatar.cc/150?img=1',
-  },
-  {
-    quote: 'Practical, fast, and directly applicable. Real drills, real corrections — worth every cent.',
-    name: 'Mark S.',
-    role: 'Casino floor staff',
-    avatar: 'https://i.pravatar.cc/150?img=12',
-  },
-  {
-    quote: 'Sofia knows the casino floor inside out. Her coaching helped me land my first online dealer position within two months.',
-    name: 'Jessica L.',
-    role: 'Online Dealer',
-    avatar: 'https://i.pravatar.cc/150?img=5',
-  },
-]
-
 export default function Testimonials() {
+  const t = useTranslations('testimonials')
+
+  const testimonials = [
+    {
+      quote: t('testimonial1'),
+      name: t('name1'),
+      role: t('role1'),
+      avatar: 'https://i.pravatar.cc/150?img=1',
+    },
+    {
+      quote: t('testimonial2'),
+      name: t('name2'),
+      role: t('role2'),
+      avatar: 'https://i.pravatar.cc/150?img=12',
+    },
+    {
+      quote: t('testimonial3'),
+      name: t('name3'),
+      role: t('role3'),
+      avatar: 'https://i.pravatar.cc/150?img=5',
+    },
+  ]
   return (
     <Row
       id="testimonials"
@@ -48,7 +50,7 @@ export default function Testimonials() {
               color: '#ffffff',
             }}
           >
-            What Students Say
+            {t('title')}
           </Title>
 
           {/* Testimonial Cards */}
@@ -124,7 +126,7 @@ export default function Testimonials() {
               marginTop: 24,
             }}
           >
-            See a short video from a recent student (30s) — coming soon
+            {t('videoNote')}
           </Text>
         </Space>
       </Col>

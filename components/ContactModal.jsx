@@ -2,11 +2,13 @@
 
 import { Modal, Form, Input, Select, Radio, Button, Space, notification } from 'antd'
 import { useState } from 'react'
+import { useTranslations } from '../hooks/useTranslations'
 import { submitContactForm } from '../lib/api'
 
 const { TextArea } = Input
 
 export default function ContactModal({ open, onClose }) {
+  const t = useTranslations('contactModal')
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const [submitDisabled, setSubmitDisabled] = useState(false)
@@ -19,8 +21,8 @@ export default function ContactModal({ open, onClose }) {
 
       // Show success notification
       notification.success({
-        message: 'Request Received',
-        description: 'Thanks — your request was received. We will contact you within 48 hours.',
+        message: t('successTitle'),
+        description: t('successMessage'),
         placement: 'topRight',
         duration: 5,
       })
@@ -37,7 +39,7 @@ export default function ContactModal({ open, onClose }) {
         onClose()
       }, 1500)
     } catch (error) {
-      let errorMessage = error.message || 'Something went wrong. Please try again or contact us directly.'
+      let errorMessage = error.message || t('errorMessage')
 
       // Show more helpful message for CORS errors in development
       if (error.message === 'Failed to fetch' && typeof window !== 'undefined' && window.location.hostname === 'localhost') {
@@ -45,7 +47,7 @@ export default function ContactModal({ open, onClose }) {
       }
 
       notification.error({
-        message: 'Submission Failed',
+        message: t('errorTitle'),
         description: errorMessage,
         placement: 'topRight',
         duration: 8,
@@ -62,12 +64,16 @@ export default function ContactModal({ open, onClose }) {
 
   return (
     <Modal
-      title="Join Waitlist"
+      title={t('title')}
       open={open}
       onCancel={handleCancel}
       footer={null}
       width={600}
       centered
+      style={{
+        padding: '0 16px',
+        maxWidth: 'calc(100vw - 32px)'
+      }}
       styles={{
         body: { padding: '32px 24px' }
       }}
@@ -81,59 +87,78 @@ export default function ContactModal({ open, onClose }) {
         {/* Full Name */}
         <Form.Item
           name="name"
-          label="Full Name"
+          label={t('nameLabel')}
           rules={[
-            { required: true, message: 'Please enter your full name' },
-            { min: 2, message: 'Name must be at least 2 characters' },
+            { required: true, message: t('nameRequired') },
+            { min: 2, message: t('nameMin') },
+            { max: 100, message: t('nameMax') },
+            {
+              pattern: /^[a-zA-ZÀ-ž\s'-]+$/,
+              message: t('namePattern')
+            }
           ]}
         >
-          <Input placeholder="Your full name" size="large" />
+          <Input placeholder={t('namePlaceholder')} size="large" maxLength={100} />
         </Form.Item>
 
         {/* Email */}
         <Form.Item
           name="email"
-          label="Email"
+          label={t('emailLabel')}
           rules={[
-            { required: true, message: 'Please enter your email' },
-            { type: 'email', message: 'Please enter a valid email address' },
+            { required: true, message: t('emailRequired') },
+            { type: 'email', message: t('emailInvalid') },
           ]}
         >
-          <Input placeholder="Your email address" size="large" type="email" />
+          <Input placeholder={t('emailPlaceholder')} size="large" type="email" />
         </Form.Item>
 
         {/* Phone (Optional) */}
         <Form.Item
           name="phone"
-          label="Phone (Optional)"
+          label={t('phoneLabel')}
+          rules={[
+            {
+              pattern: /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/,
+              message: t('phonePattern')
+            },
+            {
+              min: 7,
+              message: t('phoneMin')
+            },
+            {
+              max: 20,
+              message: t('phoneMax')
+            }
+          ]}
         >
-          <Input placeholder="Phone (optional)" size="large" type="tel" />
+          <Input placeholder={t('phonePlaceholder')} size="large" type="tel" />
         </Form.Item>
 
         {/* Preferred Course Format */}
         <Form.Item
           name="course_format"
-          label="Preferred Course Format"
-          rules={[{ required: true, message: 'Please select a format' }]}
+          label={t('formatLabel')}
+          rules={[{ required: true, message: t('formatRequired') }]}
         >
-          <Select placeholder="Choose a format" size="large">
-            <Select.Option value="One-on-one">One-on-one</Select.Option>
-            <Select.Option value="Small group">Small group</Select.Option>
-            <Select.Option value="Mentor checks">Mentor checks</Select.Option>
+          <Select placeholder={t('formatPlaceholder')} size="large">
+            <Select.Option value="One-on-one">{t('formatOneOnOne')}</Select.Option>
+            <Select.Option value="Small group">{t('formatSmallGroup')}</Select.Option>
+            <Select.Option value="Mentor checks">{t('formatMentorChecks')}</Select.Option>
           </Select>
         </Form.Item>
 
         {/* Experience Level */}
         <Form.Item
           name="experience"
-          label="Experience Level"
-          rules={[{ required: true, message: 'Please select your experience level' }]}
+          label={t('experienceLabel')}
+          rules={[{ required: true, message: t('experienceRequired') }]}
         >
           <Radio.Group size="large">
             <Space direction="vertical">
-              <Radio value="Beginner">Beginner</Radio>
-              <Radio value="Some experience">Some experience</Radio>
-              <Radio value="Experienced">Experienced</Radio>
+              <Radio value="Beginner">{t('experienceBeginner')}</Radio>
+              <Radio value="Some experience">{t('experienceSome')}</Radio>
+              <Radio value="Experienced">{t('experienceExperienced')}</Radio>
             </Space>
           </Radio.Group>
         </Form.Item>
@@ -141,23 +166,38 @@ export default function ContactModal({ open, onClose }) {
         {/* Timezone & Availability */}
         <Form.Item
           name="tz"
-          label="Timezone & Availability"
+          label={t('tzLabel')}
+          rules={[
+            {
+              max: 100,
+              message: t('tzMax')
+            }
+          ]}
         >
           <Input
-            placeholder="e.g. Europe/Kyiv — evenings UTC+2"
+            placeholder={t('tzPlaceholder')}
             size="large"
+            maxLength={100}
           />
         </Form.Item>
 
         {/* Short Message */}
         <Form.Item
           name="message"
-          label="Short Message"
+          label={t('messageLabel')}
+          rules={[
+            {
+              max: 500,
+              message: t('messageMax')
+            }
+          ]}
         >
           <TextArea
-            placeholder="Tell us your goal in 1-2 sentences"
+            placeholder={t('messagePlaceholder')}
             rows={4}
             size="large"
+            maxLength={500}
+            showCount
           />
         </Form.Item>
 
@@ -170,8 +210,14 @@ export default function ContactModal({ open, onClose }) {
             block
             loading={loading}
             disabled={submitDisabled}
+            style={{
+              minHeight: '48px',
+              height: 'auto',
+              whiteSpace: 'normal',
+              padding: '12px 24px'
+            }}
           >
-            {submitDisabled ? 'Request Sent — Check Your Email' : 'Send Request'}
+            {submitDisabled ? t('submitButtonDisabled') : t('submitButton')}
           </Button>
         </Form.Item>
       </Form>

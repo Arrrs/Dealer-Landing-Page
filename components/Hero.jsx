@@ -1,10 +1,12 @@
 'use client'
 
 import { Row, Col, Typography, Button, Space, Image } from 'antd'
+import { useTranslations } from '../hooks/useTranslations'
 
 const { Title, Text, Paragraph } = Typography
 
 export default function Hero({ onJoinWaitlist }) {
+  const t = useTranslations('hero')
   const handleViewCurriculum = () => {
     const element = document.getElementById('curriculum')
     if (element) {
@@ -38,7 +40,7 @@ export default function Hero({ onJoinWaitlist }) {
                   color: '#ffffff',
                 }}
               >
-                From Dealer's Table To Your Career — Learn Pro Casino Dealing
+                {t('title')}
               </Title>
 
               {/* Subheading */}
@@ -50,7 +52,7 @@ export default function Hero({ onJoinWaitlist }) {
                   margin: 0,
                 }}
               >
-                Hands-on coaching by a seasoned dealer. Live practice, real tips, and step-by-step mentoring — for beginners who want pro results.
+                {t('subtitle')}
               </Paragraph>
 
               {/* Trust Line */}
@@ -61,7 +63,7 @@ export default function Hero({ onJoinWaitlist }) {
                   fontWeight: 600,
                 }}
               >
-                Years at live and online tables — real shifts, real pay.
+                {t('trustLine')}
               </Text>
 
               {/* CTAs */}
@@ -72,14 +74,14 @@ export default function Hero({ onJoinWaitlist }) {
                   onClick={onJoinWaitlist}
                   style={{ height: 56, fontSize: 16, paddingLeft: 40, paddingRight: 40 }}
                 >
-                  Join Waitlist
+                  {t('cta')}
                 </Button>
                 <Button
                   size="large"
                   onClick={handleViewCurriculum}
                   style={{ height: 56, fontSize: 16, paddingLeft: 40, paddingRight: 40 }}
                 >
-                  View Curriculum
+                  {t('ctaSecondary')}
                 </Button>
               </Space>
 
@@ -92,7 +94,7 @@ export default function Hero({ onJoinWaitlist }) {
                   display: 'block',
                 }}
               >
-                Limited seats in the first cohort. Free 20-minute intro call for early signups.
+                {t('microcopy')}
               </Text>
             </Space>
           </Col>
@@ -101,7 +103,7 @@ export default function Hero({ onJoinWaitlist }) {
           <Col xs={24} md={12}>
             <Image
               src="/images/1.png"
-              alt="Professional casino dealer dealing cards at a casino table"
+              alt={t('imageAlt')}
               preview={false}
               style={{
                 width: '100%',

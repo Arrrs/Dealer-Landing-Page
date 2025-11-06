@@ -2,61 +2,48 @@
 
 import { Row, Col, Card, Typography, Button, Space, List, Badge } from 'antd'
 import { CheckOutlined, StarFilled } from '@ant-design/icons'
+import { useTranslations } from '../hooks/useTranslations'
 
 const { Title, Text, Paragraph } = Typography
 
-const packages = [
-  {
-    name: 'Starter',
-    subtitle: 'Group',
-    price: 'From $199',
-    description: 'Group cohorts, weekly sessions, community support, mentor checks.',
-    features: [
-      'Group cohort (8-12 students)',
-      'Weekly live sessions',
-      'Community support',
-      'Mentor check-ins',
-      'Course materials',
-    ],
-    cta: 'Join Starter',
-    popular: false,
-  },
-  {
-    name: 'Pro',
-    subtitle: 'Small Group',
-    price: 'From $499',
-    description: 'Smaller groups, extra practice time, prioritized feedback.',
-    features: [
-      'Small group (4-8 students)',
-      'Weekly live sessions',
-      'Extra practice time',
-      'Prioritized feedback',
-      'Course materials',
-      'Recorded sessions',
-    ],
-    cta: 'Join Pro',
-    popular: true,
-  },
-  {
-    name: 'Premium',
-    subtitle: '1:1 Coaching',
-    price: 'From $1299',
-    description: 'Personalized lessons, recorded sessions, CV review and interview prep.',
-    features: [
-      'One-on-one coaching',
-      'Personalized lesson plans',
-      'All sessions recorded',
-      'CV review & interview prep',
-      'Direct messaging access',
-      'Flexible scheduling',
-      'Lifetime materials access',
-    ],
-    cta: 'Book Premium',
-    popular: false,
-  },
-]
-
 export default function Pricing({ onContactClick }) {
+  const t = useTranslations('pricing')
+
+  const packages = [
+    {
+      name: t('plan1Title'),
+      price: t('plan1Price'),
+      features: [
+        t('plan1Feature1'),
+        t('plan1Feature2'),
+        t('plan1Feature3'),
+        t('plan1Feature4'),
+      ],
+      popular: false,
+    },
+    {
+      name: t('plan2Title'),
+      price: t('plan2Price'),
+      features: [
+        t('plan2Feature1'),
+        t('plan2Feature2'),
+        t('plan2Feature3'),
+        t('plan2Feature4'),
+      ],
+      popular: true,
+    },
+    {
+      name: t('plan3Title'),
+      price: t('plan3Price'),
+      features: [
+        t('plan3Feature1'),
+        t('plan3Feature2'),
+        t('plan3Feature3'),
+        t('plan3Feature4'),
+      ],
+      popular: false,
+    },
+  ]
   return (
     <Row
       id="pricing"
@@ -78,7 +65,7 @@ export default function Pricing({ onContactClick }) {
               color: '#ffffff',
             }}
           >
-            Pricing & Packages
+            {t('title')}
           </Title>
 
           {/* Pricing Cards */}
@@ -89,7 +76,7 @@ export default function Pricing({ onContactClick }) {
                   text={
                     <Space size="small">
                       <StarFilled />
-                      <Text>Most Popular</Text>
+                      <Text>{t('mostPopular')}</Text>
                     </Space>
                   }
                   color="gold"
@@ -116,16 +103,6 @@ export default function Pricing({ onContactClick }) {
                         >
                           {pkg.name}
                         </Title>
-                        <Text
-                          style={{
-                            color: '#8892a0',
-                            fontSize: 14,
-                            display: 'block',
-                            textAlign: 'center',
-                          }}
-                        >
-                          {pkg.subtitle}
-                        </Text>
                       </Space>
 
                       {/* Price */}
@@ -140,18 +117,6 @@ export default function Pricing({ onContactClick }) {
                       >
                         {pkg.price}
                       </Title>
-
-                      {/* Description */}
-                      <Paragraph
-                        style={{
-                          color: '#c0c7d0',
-                          fontSize: 14,
-                          textAlign: 'center',
-                          minHeight: 60,
-                        }}
-                      >
-                        {pkg.description}
-                      </Paragraph>
 
                       {/* Features List */}
                       <List
@@ -182,7 +147,7 @@ export default function Pricing({ onContactClick }) {
                         onClick={onContactClick}
                         style={{ marginTop: 16 }}
                       >
-                        {pkg.cta}
+                        {t('cta')}
                       </Button>
                     </Space>
                   </Card>
@@ -202,7 +167,7 @@ export default function Pricing({ onContactClick }) {
               marginTop: 24,
             }}
           >
-            Prices are introductory and may change. Contact us for scholarships or payment plans.
+            {t('note')}
           </Text>
         </Space>
       </Col>

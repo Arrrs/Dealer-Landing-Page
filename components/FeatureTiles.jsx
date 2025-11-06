@@ -1,6 +1,7 @@
 'use client'
 
 import { Row, Col, Card, Typography, Space } from 'antd'
+import { useTranslations } from '../hooks/useTranslations'
 import {
   TrophyOutlined,
   ThunderboltOutlined,
@@ -10,34 +11,32 @@ import {
 
 const { Title, Text, Paragraph } = Typography
 
-const features = [
-  {
-    icon: <TrophyOutlined style={{ fontSize: 48, color: '#d9a451' }} />,
-    title: 'Real Table Mechanics',
-    description: 'Deal like a pro: shuffling, dealing, payouts, edge cases.',
-    micro: 'Learn the exact hand motions and checks dealers use to avoid mistakes.',
-  },
-  {
-    icon: <ThunderboltOutlined style={{ fontSize: 48, color: '#d9a451' }} />,
-    title: 'Game Strategy & Flow',
-    description: 'Master how tables act, reading moments, and smooth dealing.',
-    micro: 'Recognize tempo, handle busy hands, avoid bottlenecks.',
-  },
-  {
-    icon: <TeamOutlined style={{ fontSize: 48, color: '#d9a451' }} />,
-    title: 'Player Interaction',
-    description: 'Polish communication and floor etiquette for confidence.',
-    micro: 'Confident table talk, handling disputes, and subtle crowd control.',
-  },
-  {
-    icon: <RocketOutlined style={{ fontSize: 48, color: '#d9a451' }} />,
-    title: 'Career Paths',
-    description: 'Live dealer, online dealer, or casino floor — learn how to apply.',
-    micro: 'CV tips, interviewing, where to find paid roles.',
-  },
-]
-
 export default function FeatureTiles() {
+  const t = useTranslations('features')
+
+  const features = [
+    {
+      icon: <TrophyOutlined style={{ fontSize: 48, color: '#d9a451' }} />,
+      title: t('feature1Title'),
+      description: t('feature1Desc'),
+    },
+    {
+      icon: <ThunderboltOutlined style={{ fontSize: 48, color: '#d9a451' }} />,
+      title: t('feature2Title'),
+      description: t('feature2Desc'),
+    },
+    {
+      icon: <TeamOutlined style={{ fontSize: 48, color: '#d9a451' }} />,
+      title: t('feature3Title'),
+      description: t('feature3Desc'),
+    },
+    {
+      icon: <RocketOutlined style={{ fontSize: 48, color: '#d9a451' }} />,
+      title: t('feature4Title'),
+      description: t('feature4Desc'),
+    },
+  ]
+
   return (
     <Row
       id="about"
@@ -60,7 +59,7 @@ export default function FeatureTiles() {
               marginBottom: 48,
             }}
           >
-            What You'll Learn
+            {t('title')}
           </Title>
 
           {/* Feature Cards */}
@@ -100,17 +99,6 @@ export default function FeatureTiles() {
                     >
                       {feature.description}
                     </Paragraph>
-
-                    {/* Micro example */}
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        color: '#8892a0',
-                        fontStyle: 'italic',
-                      }}
-                    >
-                      {feature.micro}
-                    </Text>
                   </Space>
                 </Card>
               </Col>

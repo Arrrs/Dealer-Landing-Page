@@ -1,10 +1,12 @@
 'use client'
 
+import { useTranslations } from '../hooks/useTranslations'
 import { Row, Col, Card, Typography, Button, Space, Image } from 'antd'
 
 const { Title, Text, Paragraph } = Typography
 
 export default function InstructorBio({ onContactClick }) {
+  const t = useTranslations('instructor')
   return (
     <Row
       justify="center"
@@ -38,7 +40,7 @@ export default function InstructorBio({ onContactClick }) {
               >
                 <Space direction="vertical" size="small" align="center">
                   <Text style={{ color: '#8892a0', fontSize: 14, textAlign: 'center' }}>
-                    Instructor Photo
+                    {t('title')}
                   </Text>
                   <Text style={{ fontSize: 11, color: '#6b7280', fontStyle: 'italic', textAlign: 'center' }}>
                     Generate: Professional female dealer portrait in black vest and white shirt, confident friendly expression, dark background
@@ -60,7 +62,7 @@ export default function InstructorBio({ onContactClick }) {
                       margin: 0,
                     }}
                   >
-                    Sofia
+                    {t('name')}
                   </Title>
                   <Text
                     style={{
@@ -68,7 +70,7 @@ export default function InstructorBio({ onContactClick }) {
                       fontSize: 16,
                     }}
                   >
-                    Professional Casino Dealer & Live-Dealer Specialist
+                    {t('role')}
                   </Text>
                 </Space>
 
@@ -80,23 +82,32 @@ export default function InstructorBio({ onContactClick }) {
                     lineHeight: 1.7,
                   }}
                 >
-                  Sofia started as a floor dealer and spent several years across live and online tables mastering blackjack, roulette and poker. Training on the job was fast and unforgiving; formal courses were scarce and expensive. Having navigated the real-world learning path, she now helps motivated students learn the right skills quickly — from clean dealing to streaming setups and career transitions. Her coaching is direct, practical, and focused on outcomes.
+                  {t('bio')}
                 </Paragraph>
 
                 {/* CTA */}
-                <Button
-                  type="primary"
-                  size="large"
-                  onClick={onContactClick}
-                  style={{
-                    marginTop: 16,
-                    whiteSpace: 'normal',
-                    height: 'auto',
-                    padding: '12px 24px',
-                  }}
-                >
-                  Book an intro call — see if coaching fits your goals
-                </Button>
+                <Space direction="vertical" size="small">
+                  <Button
+                    type="primary"
+                    size="large"
+                    onClick={onContactClick}
+                    style={{
+                      marginTop: 16,
+                    }}
+                  >
+                    {t('ctaButton')}
+                  </Button>
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      color: '#8892a0',
+                      fontStyle: 'italic',
+                      display: 'block',
+                    }}
+                  >
+                    {t('ctaHint')}
+                  </Text>
+                </Space>
               </Space>
             </Col>
           </Row>

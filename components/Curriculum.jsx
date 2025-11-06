@@ -2,55 +2,58 @@
 
 import { Row, Col, Typography, Space, Card, Tag } from 'antd'
 import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons'
+import { useTranslations } from '../hooks/useTranslations'
 
 const { Title, Text, Paragraph } = Typography
 
-const modules = [
-  {
-    title: 'Module 1 — Foundations',
-    hours: '3–4 hrs',
-    copy: 'Rules and payouts for blackjack, roulette and poker. Table equipment, basic chip handling and clean dealing drills.',
-    outcomes: 'Deal clean hands, recognize table mistakes, basic math checks.',
-  },
-  {
-    title: 'Module 2 — Blackjack Basics & Dealer Protocol',
-    hours: '6 hrs',
-    copy: 'Insurance, blackjack payouts, splitting and doubling rules. Dealer-specific protocols and error handling.',
-    outcomes: 'Deal, manage insurance, spot payout edge-cases.',
-  },
-  {
-    title: 'Module 3 — Roulette & Wheel Management',
-    hours: '4 hrs',
-    copy: 'Payout tables, wheel calls, bet types, tracking visual indicators. Handling disputes and lost chips.',
-    outcomes: 'Perform correct payouts and run efficient wheel cycles.',
-  },
-  {
-    title: 'Module 4 — Poker Table Management',
-    hours: '6 hrs',
-    copy: 'Collecting antes, managing pots, proper chip moves, common fouls and dealer wording.',
-    outcomes: 'Run a clean poker round under pressure.',
-  },
-  {
-    title: 'Module 5 — Live-Dealer Tech & Online Setup',
-    hours: '4 hrs',
-    copy: 'Camera framing, audio, basic streaming software, latency handling, and player-facing overlays.',
-    outcomes: 'Set up a professional live-dealer stream or assist one.',
-  },
-  {
-    title: 'Module 6 — Soft Skills & Career',
-    hours: '2–3 hrs',
-    copy: 'Player psychology, floor etiquette, building a CV, where to look for roles, interview prep.',
-    outcomes: 'Present yourself professionally and land interviews.',
-  },
-  {
-    title: 'Capstone (Optional)',
-    hours: 'Flexible',
-    copy: 'Final practical session with live simulated shifts and instructor feedback.',
-    outcomes: 'Demonstrate readiness to work a live or online table.',
-  },
-]
-
 export default function Curriculum() {
+  const t = useTranslations('curriculum')
+
+  const modules = [
+    {
+      title: t('module1Title'),
+      hours: '3–4 hrs',
+      copy: t('module1Copy'),
+      outcomes: t('module1Outcomes'),
+    },
+    {
+      title: t('module2Title'),
+      hours: '6 hrs',
+      copy: t('module2Copy'),
+      outcomes: t('module2Outcomes'),
+    },
+    {
+      title: t('module3Title'),
+      hours: '4 hrs',
+      copy: t('module3Copy'),
+      outcomes: t('module3Outcomes'),
+    },
+    {
+      title: t('module4Title'),
+      hours: '6 hrs',
+      copy: t('module4Copy'),
+      outcomes: t('module4Outcomes'),
+    },
+    {
+      title: t('module5Title'),
+      hours: '4 hrs',
+      copy: t('module5Copy'),
+      outcomes: t('module5Outcomes'),
+    },
+    {
+      title: t('module6Title'),
+      hours: '2–3 hrs',
+      copy: t('module6Copy'),
+      outcomes: t('module6Outcomes'),
+    },
+    {
+      title: t('module7Title'),
+      hours: 'Flexible',
+      copy: t('module7Copy'),
+      outcomes: t('module7Outcomes'),
+    },
+  ]
+
   return (
     <Row
       id="curriculum"
@@ -72,7 +75,7 @@ export default function Curriculum() {
               color: '#ffffff',
             }}
           >
-            Curriculum & Roadmap
+            {t('title')}
           </Title>
 
           <Paragraph
@@ -83,7 +86,7 @@ export default function Curriculum() {
               marginBottom: 32,
             }}
           >
-            Clear, modular curriculum. Each module has short practical exercises and a real-time practice session.
+            {t('subtitle')}
           </Paragraph>
 
           {/* Module Cards */}
@@ -132,7 +135,7 @@ export default function Curriculum() {
                         fontSize: 18,
                       }}
                     >
-                      {module.title.replace(/^Module \d+ — /, '')}
+                      {module.title}
                     </Title>
 
                     {/* Description */}
@@ -152,7 +155,7 @@ export default function Curriculum() {
                       <Space size="small">
                         <CheckCircleOutlined style={{ color: '#d9a451', fontSize: 14 }} />
                         <Text strong style={{ color: '#d9a451', fontSize: 13 }}>
-                          What you'll master:
+                          {t('outcomesLabel')}
                         </Text>
                       </Space>
                       <Paragraph style={{ color: '#8892a0', fontSize: 13, marginLeft: 22, marginBottom: 0 }}>

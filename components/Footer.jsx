@@ -1,12 +1,17 @@
 'use client'
 
 import { Layout, Row, Col, Space, Typography, Divider } from 'antd'
+import { useTranslations, useLocale } from '../hooks/useTranslations'
+import Link from 'next/link'
 
 const { Footer: AntFooter } = Layout
-const { Text, Link } = Typography
+const { Text } = Typography
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const t = useTranslations('nav')
+  const tCommon = useTranslations('common')
+  const locale = useLocale()
 
   return (
     <AntFooter
@@ -20,25 +25,21 @@ export default function Footer() {
           <Space direction="vertical" size="large" style={{ width: '100%' }}>
             {/* Links */}
             <Space size="large" wrap style={{ justifyContent: 'center' }}>
-              <Link href="#about" style={{ color: '#8892a0' }}>Privacy</Link>
-              <Link href="#about" style={{ color: '#8892a0' }}>Terms</Link>
-              <Link href="#contact" style={{ color: '#8892a0' }}>Contact</Link>
-              <Link href="#about" style={{ color: '#8892a0' }}>Sitemap</Link>
+              <Link href="/privacy" style={{ color: '#8892a0' }}>
+                {t('privacy')}
+              </Link>
+              <Link href="/terms" style={{ color: '#8892a0' }}>
+                {t('terms')}
+              </Link>
+              <Link href="/contact" style={{ color: '#8892a0' }}>
+                {t('contact')}
+              </Link>
+              <Link href="/sitemap" style={{ color: '#8892a0' }}>
+                {t('sitemap')}
+              </Link>
             </Space>
 
             <Divider style={{ margin: '16px 0' }} />
-
-            {/* Privacy Notice */}
-            <Text
-              style={{
-                fontSize: 13,
-                color: '#6b7280',
-                display: 'block',
-                lineHeight: 1.6,
-              }}
-            >
-              Form submissions are saved to Google Sheets used for course administration. We do not sell your data.
-            </Text>
 
             {/* Copyright */}
             <Text
@@ -47,7 +48,7 @@ export default function Footer() {
                 color: '#8892a0',
               }}
             >
-              © {currentYear} LearnToDeal — All rights reserved.
+              © {currentYear} {tCommon('appName')} — All rights reserved.
             </Text>
           </Space>
         </Col>
