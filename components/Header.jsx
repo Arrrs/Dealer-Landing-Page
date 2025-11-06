@@ -53,7 +53,7 @@ export default function Header({ onContactClick }) {
       style={{
         position: 'sticky',
         top: 0,
-        zIndex: 100,
+        zIndex: 1000,
         width: '100%',
         padding: '0 16px',
         height: 64,
@@ -95,17 +95,35 @@ export default function Header({ onContactClick }) {
         </Col>
 
         {/* Desktop Menu */}
-        <Col md={12} className="desktop-only" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Menu
-            mode="horizontal"
-            items={menuItems}
-            onClick={handleMenuClick}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              lineHeight: '64px',
-            }}
-          />
+        <Col md={12} className="desktop-only" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 4 }}>
+          <Space size={4}>
+            {menuItems.map((item) => (
+              <Button
+                key={item.key}
+                type="text"
+                onClick={() => handleMenuClick({ key: item.key })}
+                style={{
+                  color: '#e8eaed',
+                  fontWeight: 500,
+                  fontSize: 14,
+                  height: 40,
+                  padding: '0 12px',
+                  position: 'relative',
+                  zIndex: 1,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#d9a451'
+                  e.currentTarget.style.background = 'rgba(217, 164, 81, 0.1)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#e8eaed'
+                  e.currentTarget.style.background = 'transparent'
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Space>
         </Col>
 
         {/* Desktop CTA Button & Language Switcher */}
