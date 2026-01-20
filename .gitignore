@@ -45,3 +45,5 @@ next-env.d.ts
 /google-apps-script
 /docs
 /.claude
+.gitidnore
+test-debug-deployment.sh
