@@ -37,13 +37,13 @@ textarea,
 }
 
 /* Mobile header responsive fixes */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .desktop-only {
     display: none !important;
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   .mobile-only {
     display: none !important;
   }

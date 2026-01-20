@@ -1,7 +1,7 @@
 'use client'
 
-import { Layout, Row, Col, Menu, Button, Drawer, Space, Typography } from 'antd'
-import { MenuOutlined, CloseOutlined } from '@ant-design/icons'
+import { Layout, Row, Col, Menu, Button, Drawer, Space, Typography, Dropdown } from 'antd'
+import { MenuOutlined, CloseOutlined, EllipsisOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { useTranslations, useLocale } from '../hooks/useTranslations'
 import { useRouter } from 'next/navigation'
@@ -27,6 +27,9 @@ export default function Header({ onContactClick }) {
     { key: 'faq', label: t('faq') },
     { key: 'contact', label: t('contact') },
   ]
+
+  const visibleMenuItems = menuItems.slice(0, 3)
+  const dropdownMenuItems = menuItems.slice(3)
 
   const handleMenuClick = (e) => {
     if (e.key === 'home') {
@@ -68,7 +71,7 @@ export default function Header({ onContactClick }) {
         style={{ width: '100%', maxWidth: 1400, margin: '0 auto' }}
       >
         {/* Logo */}
-        <Col xs={18} sm={18} md={6}>
+        <Col xs={18} sm={18} lg={5}>
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: 64 }}>
             <Text
               style={{
@@ -95,9 +98,9 @@ export default function Header({ onContactClick }) {
         </Col>
 
         {/* Desktop Menu */}
-        <Col md={12} className="desktop-only" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 4 }}>
-          <Space size={4}>
-            {menuItems.map((item) => (
+        <Col lg={13} className="desktop-only" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Space size={0} wrap={false}>
+            {visibleMenuItems.map((item) => (
               <Button
                 key={item.key}
                 type="text"
@@ -105,9 +108,9 @@ export default function Header({ onContactClick }) {
                 style={{
                   color: '#e8eaed',
                   fontWeight: 500,
-                  fontSize: 14,
+                  fontSize: 13,
                   height: 40,
-                  padding: '0 12px',
+                  padding: '0 10px',
                   position: 'relative',
                   zIndex: 1,
                 }}
@@ -123,12 +126,41 @@ export default function Header({ onContactClick }) {
                 {item.label}
               </Button>
             ))}
+            {dropdownMenuItems.length > 0 && (
+              <Dropdown
+                menu={{
+                  items: dropdownMenuItems,
+                  onClick: handleMenuClick,
+                }}
+                placement="bottomRight"
+                trigger={['click']}
+              >
+                <Button
+                  type="text"
+                  icon={<EllipsisOutlined style={{ fontSize: 18 }} />}
+                  style={{
+                    color: '#e8eaed',
+                    fontWeight: 500,
+                    height: 40,
+                    padding: '0 10px',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#d9a451'
+                    e.currentTarget.style.background = 'rgba(217, 164, 81, 0.1)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = '#e8eaed'
+                    e.currentTarget.style.background = 'transparent'
+                  }}
+                />
+              </Dropdown>
+            )}
           </Space>
         </Col>
 
         {/* Desktop CTA Button & Language Switcher */}
-        <Col md={6} className="desktop-only" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 8 }}>
-          <LanguageSwitcher style={{ width: 160 }} />
+        <Col lg={6} className="desktop-only" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 8 }}>
+          <LanguageSwitcher style={{ width: 140 }} />
           <Button
             type="primary"
             size="large"

@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import themeConfig from '../../theme.config'
 import { useTranslations, useLocale } from '../../hooks/useTranslations'
+import { setLocale } from '../../lib/i18n'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import ContactModal from '../../components/ContactModal'
@@ -119,7 +120,7 @@ export default function SitemapPage() {
               <Col xs={24}>
                 <Card
                   style={{
-                    background: '#f8f9fa',
+                    // background: '#f8f9fa',
                     border: '1px solid #e1e4e8',
                   }}
                 >
@@ -139,6 +140,10 @@ export default function SitemapPage() {
                             borderRadius: 8,
                             border: '1px solid #e1e4e8',
                             textAlign: 'center',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => {
+                            setLocale(lang.code)
                           }}
                         >
                           {lang.flag} {lang.name}
