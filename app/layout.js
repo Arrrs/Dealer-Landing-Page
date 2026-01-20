@@ -8,14 +8,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+        <link rel="icon" href="/images/favicon.png" />
+        <style dangerouslySetInnerHTML={{ __html: `
+          .app-loading { opacity: 0; }
+          .app-ready { opacity: 1; transition: opacity 0.15s ease-in; }
+        `}} />
       </head>
-      <body style={{ margin: 0, padding: 0, overflowX: 'hidden', width: '100%' }}>
+      <body style={{ margin: 0, padding: 0, overflowX: 'hidden', width: '100%', background: '#141414' }}>
         {children}
       </body>
     </html>

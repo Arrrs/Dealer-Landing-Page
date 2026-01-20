@@ -2,7 +2,7 @@
 
 import { ConfigProvider } from 'antd'
 import { Layout } from 'antd'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import themeConfig from '../theme.config'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
@@ -20,6 +20,11 @@ const { Content } = Layout
 
 export default function Home() {
   const [contactModalOpen, setContactModalOpen] = useState(false)
+  const [isReady, setIsReady] = useState(false)
+
+  useEffect(() => {
+    setIsReady(true)
+  }, [])
 
   const handleOpenContactModal = () => {
     setContactModalOpen(true)
@@ -31,7 +36,7 @@ export default function Home() {
 
   return (
     <ConfigProvider theme={themeConfig}>
-      <Layout style={{ minHeight: '100vh', overflowX: 'hidden' }}>
+      <Layout className={isReady ? 'app-ready' : 'app-loading'} style={{ minHeight: '100vh', overflowX: 'hidden' }}>
         <Header onContactClick={handleOpenContactModal} />
 
         <Content style={{ overflowX: 'hidden', width: '100%' }}>
