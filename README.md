@@ -10,3 +10,12 @@ A modern, mobile-first Next.js landing page for casino dealer coaching services.
 - **Telegram notifications** for new leads
 - **Static export** ready for Netlify hosting
 - **SEO optimized** with proper meta tags
+
+
+| | | | | |
+|:---:|:---:|:---:|:---:|:---:|
+| ![Screenshot](public/screenshots/screenshot1m.png) | ![Screenshot](public/screenshots/screenshot2m.png) | ![Screenshot](public/screenshots/screenshot3m.png) | ![Screenshot](public/screenshots/screenshot4m.png) | ![Screenshot](public/screenshots/screenshot5m.png) |
+
+| | | |
+|:---:|:---:|:---:|
+| ![Screenshot](public/screenshots/screenshot1f.png) | ![Screenshot](public/screenshots/screenshot2f.png) | ![Screenshot](public/screenshots/screenshot3f.png) |
